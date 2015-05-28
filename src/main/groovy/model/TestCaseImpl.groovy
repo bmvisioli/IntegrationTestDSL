@@ -10,6 +10,8 @@ class TestCaseImpl implements TestCase {
 	@Override
 	/**
 	 * Executes the Setup Script, all the Test Steps and the Tear Down script.
+	 * 
+	 * @return if the test case succeed or failed
 	 */
 	public boolean execute() {
 		boolean succeed = true

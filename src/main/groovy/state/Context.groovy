@@ -4,6 +4,6 @@ import model.TestCase
 
 class Context {
 
-	List<TestCase> testCases
+	List<TestCase> testCases = []
 	
 }

@@ -3,6 +3,7 @@
 *.pydevproject
 .metadata
 .gradle
+build/
 bin/
 tmp/
 *.tmp
@@ -100,5 +101,3 @@ crashlytics-build.properties
 
 *.log
 
-*~
-/build/
