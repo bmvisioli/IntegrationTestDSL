@@ -6,7 +6,10 @@ repositories {
 }
 
 dependencies {
-	compile 'org.codehaus.groovy:groovy-all:2.3.10'
+	compile 'org.codehaus.groovy:groovy-all:2.3.3'
     compile 'org.slf4j:slf4j-api:1.7.12'
     testCompile 'junit:junit:4.12'
+	testCompile 'org.mockito:mockito-all:1.10.8'
+	testCompile 'com.cyrusinnovation:mockito-groovy-support:1.3'
 }
+

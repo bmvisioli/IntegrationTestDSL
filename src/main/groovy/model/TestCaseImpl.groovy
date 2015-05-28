@@ -1,11 +1,9 @@
 package model
 
-import groovy.lang.Closure;
-
 class TestCaseImpl implements TestCase {
 
 	String name
-	List<TestStep> testSteps
+	List<TestStep> testSteps = []
 	Closure setupScript
 	Closure tearDownScript
 	
@@ -14,9 +12,11 @@ class TestCaseImpl implements TestCase {
 	 * Executes the Setup Script, all the Test Steps and the Tear Down script.
 	 */
 	public boolean execute() {
-		setupScript.call(this)
-		tearDownScript.call(this)
-		return false;
+		boolean succeed = true
+		setupScript?.call(this)
+		testSteps.each { succeed &= it.execute() }
+		tearDownScript?.call(this)
+		return succeed;
 	}
 
 	@Override
