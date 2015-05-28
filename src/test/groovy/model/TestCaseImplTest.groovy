@@ -7,12 +7,9 @@ public class TestCaseImplTest {
 	@Test
 	void "Execute calls the setup and tear down scripts"() {
 		def tested = new TestCaseImpl()
-		def setupScript = {}
-		def tearDownScript = {}
-		tested.setSetupScript(setupScript)
-		tested.setTearDownScript(tearDownScript)
-		
-		assert true
+		tested.setupScript = { it.name = "test" }
+		tested.tearDownScript = { it.name = "${it.name}test" }
+		tested.execute()
+		assert tested.name == "testtest"
 	}
-		
 }
