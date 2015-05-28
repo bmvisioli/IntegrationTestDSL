@@ -5,8 +5,8 @@ class ContainsAssertion implements Assertion {
 	String name
 	String text
 	@Override
-	public boolean assertCondition(TestStep testStep) {
-		return testStep.getResult() ==~ ".*${text}.*"
+	public boolean assertCondition(Object result) {
+		return result ==~ ".*${text}.*"
 	}
 }
 	

@@ -31,8 +31,8 @@ class TestCaseBuilder {
 	 * @param connectionString A JDBC connection string like 'jdbc:oracle:user/pass@localhost:1521'.
 	 * @return this test case builder.
 	 */
-	TestCaseBuilder jdbc(String name, String connectionString) {
-		activeTestStep = new JdbcTestStep(name:name, connectionURL:connectionString)
+	TestCaseBuilder jdbc(String name, String connectionString, String sql) {
+		activeTestStep = new JdbcTestStep(name:name, connectionURL:connectionString, sql:sql)
 		activeTestCase.testSteps << activeTestStep
 		return this
 	}
