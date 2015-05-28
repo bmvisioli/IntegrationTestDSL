@@ -1,5 +1,6 @@
 package model
 
-interface Assertion extends Executable {
+interface Assertion {
 	
+	boolean assertCondition(TestStep testStep)
 }

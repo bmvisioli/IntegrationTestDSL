@@ -3,7 +3,7 @@ package model
 class TestCaseImpl implements TestCase {
 
 	String name
-	List<TestStep> testSteps = []
+	List<AbstractTestStep> testSteps = []
 	Closure setupScript
 	Closure tearDownScript
 	
