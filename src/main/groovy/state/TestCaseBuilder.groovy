@@ -40,6 +40,30 @@ class TestCaseBuilder {
 	}
 	
 	/**
+	 * Add a setup script to the test case.
+	 * 
+	 * @param closure the script to run before the test case execution.
+	 * @return this test case builder.
+	 */
+	TestCaseBuilder setupScript(Closure closure) {
+		if(!activeTestCase) throw new IllegalStateException("A setup script must be added to a Test Case.")
+		activeTestCase.setupScript = closure
+		return this
+	}
+	
+	/**
+	 * Add a tear down script to the test case.
+	 *
+	 * @param closure the script to run after the test case execution.
+	 * @return this test case builder.
+	 */
+	TestCaseBuilder tearDownScript(Closure closure) {
+		if(!activeTestCase) throw new IllegalStateException("A tear down script must be added to a Test Case.")
+		activeTestCase.tearDownScript = closure
+		return this
+	}
+	
+	/**
 	 * Create a new JDBC test step.
 	 * 
 	 * @param connectionString A JDBC connection string like 'jdbc:oracle:user/pass@localhost:1521'.
@@ -56,6 +80,7 @@ class TestCaseBuilder {
 	 * @param testStep
 	 */
 	private void addTestStep(TestStep testStep) {
+		if(!activeTestCase) throw new IllegalStateException("A test step must be added to a Test Case.")
 		activeTestStep = testStep
 		activeTestCase.testSteps << testStep
 		activeAssertion = null
@@ -78,7 +103,7 @@ class TestCaseBuilder {
 	 * @param assertion
 	 */
 	private void addAssertion(Assertion assertion) {
-		if(!activeTestStep) throw new IllegalStateException("An assertion must be added to a Test Step")
+		if(!activeTestStep) throw new IllegalStateException("An assertion must be added to a Test Step.")
 		activeAssertion = assertion
 		activeTestStep.assertions << assertion
 	}

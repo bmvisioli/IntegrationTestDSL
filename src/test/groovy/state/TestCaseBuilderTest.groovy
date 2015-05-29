@@ -67,4 +67,52 @@ class TestCaseBuilderTest {
 			.testCase("testCase")
 			.contains("text")
 	}
+	
+	@Test(expected=IllegalStateException)
+	void "An exception is thrown when adding an test step with no test case"() {
+		def tested = new TestCaseBuilder()
+
+		tested
+			.jdbc("mock","sql")
+	}
+	
+	@Test
+	void "SetupScript adds a setup script to the test case"() {
+		def tested = new TestCaseBuilder()
+		
+		tested
+			.testCase("testCase")
+			.setupScript { it.name = "newTestCase" }
+		tested.context.execute()
+			
+		assert "newTestCase" == tested.context.testCases[0].name
+	}
+	
+	@Test(expected=IllegalStateException)
+	void "An exception is thrown when adding an setup script with no test case"() {
+		def tested = new TestCaseBuilder()
+		
+		tested
+			.setupScript { it.name = "newTestCase" }
+	}
+	
+	@Test
+	void "TearDownScript adds a tear down script to the test case"() {
+		def tested = new TestCaseBuilder()
+		
+		tested
+			.testCase("testCase")
+			.tearDownScript { it.name = "newTestCase" }
+		tested.context.execute()
+			
+		assert "newTestCase" == tested.context.testCases[0].name
+	}
+	
+	@Test(expected=IllegalStateException)
+	void "An exception is thrown when adding an tear down script with no test case"() {
+		def tested = new TestCaseBuilder()
+		
+		tested
+			.tearDownScript { it.name = "newTestCase" }
+	}
 }
