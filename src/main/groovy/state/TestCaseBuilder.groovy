@@ -1,6 +1,6 @@
 package state
 
-import model.Assertion
+import model.AbstractAssertion
 import model.ContainsAssertion
 import model.HttpRequestTestStep
 import model.SqlTestStep
@@ -13,7 +13,7 @@ class TestCaseBuilder {
 	Context context = new Context()
 	TestStep activeTestStep
 	TestCase activeTestCase
-	Assertion activeAssertion
+	AbstractAssertion activeAssertion
 	
 	/**
 	 * Starting point to create the test case.
@@ -116,7 +116,7 @@ class TestCaseBuilder {
 	 * 
 	 * @param assertion
 	 */
-	private void addAssertion(Assertion assertion) {
+	private void addAssertion(AbstractAssertion assertion) {
 		if(!activeTestStep) throw new IllegalStateException("An assertion must be added to a Test Step.")
 		activeAssertion = assertion
 		activeTestStep.assertions << assertion

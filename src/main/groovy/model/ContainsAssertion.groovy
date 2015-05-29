@@ -1,7 +1,6 @@
 package model
-class ContainsAssertion implements Assertion {
+class ContainsAssertion extends AbstractAssertion {
 
-	String name
 	String text
 	@Override
 	public boolean assertCondition(Object result) {
