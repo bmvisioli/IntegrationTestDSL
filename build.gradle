@@ -2,12 +2,14 @@ apply plugin: 'eclipse'
 apply plugin: 'groovy'
 
 repositories {
-    jcenter()
+    mavenLocal()
+    mavenCentral()
 }
 
 dependencies {
 	compile 'org.codehaus.groovy:groovy-all:2.3.3'
     compile 'org.slf4j:slf4j-api:1.7.12'
+	testCompile "com.oracle:ojdbc6:11.1.0.7.0-Production"
     testCompile 'junit:junit:4.12'
 	testCompile 'org.mockito:mockito-all:1.10.8'
 	testCompile 'com.cyrusinnovation:mockito-groovy-support:1.3'

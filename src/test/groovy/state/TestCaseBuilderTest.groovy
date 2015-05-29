@@ -18,9 +18,8 @@ class TestCaseBuilderTest {
 		
 		tested
 		.testCase("testCase")
-		.jdbc("jdbcTestStep", "jdbc:mock:str", "select * from dual")
+		.jdbc("jdbc:mock:str", "select * from dual")
 		
-		assert tested.context.testCases[0].testSteps[0].name == "jdbcTestStep"
 		assert tested.context.testCases[0].testSteps[0].connectionURL == "jdbc:mock:str"
 	}
 	
@@ -30,10 +29,9 @@ class TestCaseBuilderTest {
 		
 		tested
 		.testCase("testCase")
-		.jdbc("jdbcTestStep", "jdbc:mock:str", "select * from dual")
-		.contains("Contains a text", "text")
+		.jdbc("jdbc:mock:str", "select * from dual")
+		.contains("text")
 		
-		assert tested.context.testCases[0].testSteps[0].assertions[0].name == "Contains a text"
 		assert tested.context.testCases[0].testSteps[0].assertions[0].text == "text"
 	}
 	
@@ -43,11 +41,10 @@ class TestCaseBuilderTest {
 		
 		tested
 		.testCase("testCase")
-		.jdbc("jdbcTestStep", "jdbc:mock:str", "select * from dual")
-		.jdbc("jdbcTestStep2", "jdbc:mock:str2", "select * from dual")
-		.contains("Contains a text", "text")
+		.jdbc("jdbc:mock:str", "select * from dual")
+		.jdbc("jdbc:mock:str2", "select * from dual")
+		.contains("text")
 		
-		assert tested.context.testCases[0].testSteps[1].assertions[0].name == "Contains a text"
 		assert tested.context.testCases[0].testSteps[1].assertions[0].text == "text"
 	}
 }

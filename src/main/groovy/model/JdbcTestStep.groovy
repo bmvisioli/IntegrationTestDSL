@@ -12,7 +12,10 @@ class JdbcTestStep extends AbstractTestStep {
 	@Override
 	public boolean execute() {
 		boolean result = true
-		def xmlResult = XmlParser.toXml(Sql.newInstance(connectionURL).executeQuery(sql))
+		def xmlResult
+		Sql.newInstance(connectionURL).query(sql) {
+			xmlResult = XmlParser.toXml(it)
+		}
 		assertions.each { result &= it.assertCondition(xmlResult) }
 		return result
 	}
