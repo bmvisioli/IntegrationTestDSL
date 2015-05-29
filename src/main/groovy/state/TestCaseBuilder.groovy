@@ -1,5 +1,6 @@
 package state
 
+import model.Assertion
 import model.ContainsAssertion
 import model.JdbcTestStep
 import model.TestCase
@@ -11,6 +12,7 @@ class TestCaseBuilder {
 	Context context = new Context()
 	TestStep activeTestStep
 	TestCase activeTestCase
+	Assertion activeAssertion
 	
 	/**
 	 * Starting point to create the test case.
@@ -21,6 +23,8 @@ class TestCaseBuilder {
 	TestCaseBuilder testCase(String name) {
 		activeTestCase = new TestCaseImpl(name:name)
 		context.testCases << activeTestCase
+		activeTestStep = null
+		activeAssertion = null
 		return this
 	}
 	
@@ -38,25 +42,44 @@ class TestCaseBuilder {
 	/**
 	 * Create a new JDBC test step.
 	 * 
-	 * @param name Test Step name
 	 * @param connectionString A JDBC connection string like 'jdbc:oracle:user/pass@localhost:1521'.
 	 * @return this test case builder.
 	 */
 	TestCaseBuilder jdbc(String connectionString, String sql) {
-		activeTestStep = new JdbcTestStep(connectionURL:connectionString, sql:sql)
-		activeTestCase.testSteps << activeTestStep
+		addTestStep(new JdbcTestStep(connectionURL:connectionString, sql:sql))
 		return this
+	}
+	
+	/**
+	 * Add a new test step to the active test case.
+	 * 
+	 * @param testStep
+	 */
+	private void addTestStep(TestStep testStep) {
+		activeTestStep = testStep
+		activeTestCase.testSteps << testStep
+		activeAssertion = null
 	}
 	
 	/**
 	 * Create a new contains assertion.
 	 *
-	 * @param name The assertion name
 	 * @param text The text to validate if contains on the result.
 	 * @return this test case builder.
 	 */
 	TestCaseBuilder contains(String text) {
-		activeTestStep.assertions << new ContainsAssertion(text:text)
+		addAssertion(new ContainsAssertion(text:text))
 		return this
+	}
+	
+	/**
+	 * Add a new assertion to the active test step.
+	 * 
+	 * @param assertion
+	 */
+	private void addAssertion(Assertion assertion) {
+		if(!activeTestStep) throw new IllegalStateException("An assertion must be added to a Test Step")
+		activeAssertion = assertion
+		activeTestStep.assertions << assertion
 	}
 }

@@ -1,5 +1,4 @@
-package model
-
+package model
 class ContainsAssertion implements Assertion {
 
 	String name
