@@ -21,6 +21,18 @@ class TestCaseBuilderTest {
 
 		assert tested.context.testCases[0].testSteps[0].connectionURL == "jdbc:mock:str"
 	}
+	
+	@Test
+	void "HttpRequest method creates a new http request test step in Context"() {
+		def tested = new TestCaseBuilder()
+
+		tested
+				.testCase("testCase")
+				.httpRequest("endpoint", "request")
+
+		assert tested.context.testCases[0].testSteps[0].endpoint == "endpoint"
+		assert tested.context.testCases[0].testSteps[0].request == "request"
+	}
 
 	@Test
 	void "Contains method creates a new assertion on the test step"() {

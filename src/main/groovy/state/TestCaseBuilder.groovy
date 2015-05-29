@@ -2,6 +2,7 @@ package state
 
 import model.Assertion
 import model.ContainsAssertion
+import model.HttpRequestTestStep
 import model.SqlTestStep
 import model.TestCase
 import model.TestCaseImpl
@@ -66,12 +67,24 @@ class TestCaseBuilder {
 	/**
 	 * Create a new SQL test step.
 	 * 
-	 * @param connectionString A JDBC connection string like 'jdbc:oracle:user/pass@localhost:1521'.
+	 * @param connectionString A JDBC connection string i.e.: 'jdbc:oracle:user/pass@localhost:1521'.
 	 * @param sql the sql query/update to execute.
 	 * @return this test case builder.
 	 */
 	TestCaseBuilder sql(String connectionString, String sql) {
 		addTestStep(new SqlTestStep(connectionURL:connectionString, sql:sql))
+		return this
+	}
+	
+	/**
+	 * Create a new HttpRequest test step.
+	 * 
+	 * @param endpoint the endpoint to call i.e.: http://host:8080/soap.
+	 * @param request the request to send.
+	 * @return this test case builder.
+	 */
+	TestCaseBuilder httpRequest(String endpoint, String request) {
+		addTestStep(new HttpRequestTestStep(endpoint:endpoint, request:request))
 		return this
 	}
 	
