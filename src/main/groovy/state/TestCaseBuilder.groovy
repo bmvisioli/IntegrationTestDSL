@@ -2,7 +2,7 @@ package state
 
 import model.Assertion
 import model.ContainsAssertion
-import model.JdbcTestStep
+import model.SqlTestStep
 import model.TestCase
 import model.TestCaseImpl
 import model.TestStep
@@ -64,13 +64,14 @@ class TestCaseBuilder {
 	}
 	
 	/**
-	 * Create a new JDBC test step.
+	 * Create a new SQL test step.
 	 * 
 	 * @param connectionString A JDBC connection string like 'jdbc:oracle:user/pass@localhost:1521'.
+	 * @param sql the sql query/update to execute.
 	 * @return this test case builder.
 	 */
-	TestCaseBuilder jdbc(String connectionString, String sql) {
-		addTestStep(new JdbcTestStep(connectionURL:connectionString, sql:sql))
+	TestCaseBuilder sql(String connectionString, String sql) {
+		addTestStep(new SqlTestStep(connectionURL:connectionString, sql:sql))
 		return this
 	}
 	

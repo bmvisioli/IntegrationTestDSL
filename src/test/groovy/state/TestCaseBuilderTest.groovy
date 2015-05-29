@@ -12,12 +12,12 @@ class TestCaseBuilderTest {
 	}
 
 	@Test
-	void "Jdbc method creates a new jdbc test step in Context"() {
+	void "Sql method creates a new sql test step in Context"() {
 		def tested = new TestCaseBuilder()
 
 		tested
 				.testCase("testCase")
-				.jdbc("jdbc:mock:str", "select * from dual")
+				.sql("jdbc:mock:str", "select * from dual")
 
 		assert tested.context.testCases[0].testSteps[0].connectionURL == "jdbc:mock:str"
 	}
@@ -28,7 +28,7 @@ class TestCaseBuilderTest {
 
 		tested
 				.testCase("testCase")
-				.jdbc("jdbc:mock:str", "select * from dual")
+				.sql("jdbc:mock:str", "select * from dual")
 				.contains("text")
 
 		assert tested.context.testCases[0].testSteps[0].assertions[0].text == "text"
@@ -40,20 +40,20 @@ class TestCaseBuilderTest {
 
 		tested
 		.testCase("testCase")
-		.jdbc("jdbc:mock:str", "select * from dual")
+		.sql("jdbc:mock:str", "select * from dual")
 		.stepName("JDBC MOCK")
 
 		assert tested.context.testCases[0].testSteps[0].name == "JDBC MOCK"
 	}
 
 	@Test
-	void "A second call to Jdbc method creates a new Test Step"() {
+	void "A second call to Sql method creates a new Test Step"() {
 		def tested = new TestCaseBuilder()
 
 		tested
 				.testCase("testCase")
-				.jdbc("jdbc:mock:str", "select * from dual")
-				.jdbc("jdbc:mock:str2", "select * from dual")
+				.sql("jdbc:mock:str", "select * from dual")
+				.sql("jdbc:mock:str2", "select * from dual")
 				.contains("text")
 
 		assert tested.context.testCases[0].testSteps[1].assertions[0].text == "text"
@@ -73,7 +73,7 @@ class TestCaseBuilderTest {
 		def tested = new TestCaseBuilder()
 
 		tested
-			.jdbc("mock","sql")
+			.sql("mock","sql")
 	}
 	
 	@Test

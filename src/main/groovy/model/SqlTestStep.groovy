@@ -5,7 +5,7 @@ import parser.XmlParser
 import groovy.util.logging.Slf4j
 
 @Slf4j
-class JdbcTestStep extends AbstractTestStep {
+class SqlTestStep extends AbstractTestStep {
 	
 	String connectionURL
 	String sql
