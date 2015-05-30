@@ -144,6 +144,15 @@ class TestCaseBuilderTest {
 		assert tested.context.testCases[0].testSteps[0].assertions[0].code == 200
 	}
 	
+	@Test(expected=IllegalStateException)
+	void "Attempting to add a status code to a non-HttpRequest test step throws a exception"() {
+		def tested = new TestCaseBuilder()
+		
+		tested
+			.sql("","")
+			.statusCode(0)
+	}
+	
 	@Test
 	void "Delay adds a delay test step"() {
 		def tested = new TestCaseBuilder()

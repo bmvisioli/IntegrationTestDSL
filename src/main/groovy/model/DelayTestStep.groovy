@@ -10,4 +10,9 @@ class DelayTestStep extends AbstractTestStep {
 		return true
 	}
 	
+	@Override
+	public AbstractAssertion addAssertion(AbstractAssertion assertion) {
+		throw new IllegalStateException("Delay test step does not allow any assertion because it produces no result.")
+	}
+	
 }

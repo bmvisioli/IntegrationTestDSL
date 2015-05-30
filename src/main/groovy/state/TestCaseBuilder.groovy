@@ -135,14 +135,16 @@ class TestCaseBuilder {
 	private void addAssertion(AbstractAssertion assertion) {
 		if(!activeTestStep) throw new IllegalStateException("An assertion must be added to a Test Step.")
 		activeAssertion = assertion
-		activeTestStep.assertions << assertion
+		activeTestStep.addAssertion(assertion)
 	}
 	
 	/**
 	 * 
 	 */
 	TestCaseBuilder statusCode(int code) {
-		addAssertion(new StatusCodeAssertion(code:code))
+		if(activeTestStep instanceof HttpRequestTestStep) 
+			addAssertion(new StatusCodeAssertion(code:code))
+		else throw new IllegalStateException("Status Code assertion only allowed on http request test steps.")
 		return this
 	}
 }
