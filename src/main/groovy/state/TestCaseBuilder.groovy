@@ -1,5 +1,7 @@
 package state
 
+import org.apache.http.entity.ContentType;
+
 import model.AbstractAssertion
 import model.ContainsAssertion
 import model.HttpRequestTestStep
@@ -7,6 +9,7 @@ import model.SqlTestStep
 import model.TestCase
 import model.TestCaseImpl
 import model.TestStep
+import model.HttpRequestTestStep.HttpVerb
 
 class TestCaseBuilder {
 	
@@ -83,8 +86,8 @@ class TestCaseBuilder {
 	 * @param request the request to send.
 	 * @return this test case builder.
 	 */
-	TestCaseBuilder httpRequest(String endpoint, String request) {
-		addTestStep(new HttpRequestTestStep(endpoint:endpoint, request:request))
+	TestCaseBuilder post(String endpoint, String request, ContentType contentType) {
+		addTestStep(new HttpRequestTestStep(endpoint:endpoint, request:request, verb:HttpVerb.POST, contentType:contentType))
 		return this
 	}
 	

@@ -3,7 +3,7 @@ A DSL for integration tests using groovy.
 
 Expected features:
 - Create named Test Cases;
-- Accept setup and tear-down scripts as clousures;
+- Accept setup and tear-down scripts as closures;
 - Add a delay x milliseconds step;
 - Make JDBC queries;
 - Make HTTP requests with body and headers;

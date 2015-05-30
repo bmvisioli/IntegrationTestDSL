@@ -1,5 +1,8 @@
 package state
 
+import model.HttpRequestTestStep;
+
+import org.apache.http.entity.ContentType;
 import org.junit.Test
 
 class TestCaseBuilderTest {
@@ -23,15 +26,16 @@ class TestCaseBuilderTest {
 	}
 	
 	@Test
-	void "HttpRequest method creates a new http request test step in Context"() {
+	void "Post method creates a new http request test step in Context"() {
 		def tested = new TestCaseBuilder()
 
 		tested
 				.testCase("testCase")
-				.httpRequest("endpoint", "request")
+				.post("endpoint", "request", ContentType.APPLICATION_JSON)
 
 		assert tested.context.testCases[0].testSteps[0].endpoint == "endpoint"
 		assert tested.context.testCases[0].testSteps[0].request == "request"
+		assert tested.context.testCases[0].testSteps[0].verb == HttpRequestTestStep.HttpVerb.POST
 	}
 
 	@Test

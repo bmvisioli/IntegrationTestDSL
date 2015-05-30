@@ -3,6 +3,13 @@ apply plugin: 'groovy'
 
 repositories {
     mavenLocal()
+	maven {
+		url 'http://artifactory-corp.stefanini.com:8081/artifactory/ext-release-local'
+		credentials {
+			username 'bvisioli'
+			password 'AP9SmLCtqmPZ9rWrJrLC6rXhDkY'
+		}
+	}
     mavenCentral()
 }
 
@@ -10,6 +17,7 @@ dependencies {
 	compile 'org.codehaus.groovy:groovy-all:2.3.3'
 	compile 'org.slf4j:slf4j-log4j12:1.7.12'
 	compile 'log4j:log4j:1.2.17'
+	compile 'org.apache.httpcomponents:fluent-hc:4.3.2'
 	testCompile "com.oracle:ojdbc6:11.1.0.7.0-Production"
     testCompile 'junit:junit:4.12'
 	testCompile 'org.mockito:mockito-all:1.10.8'
