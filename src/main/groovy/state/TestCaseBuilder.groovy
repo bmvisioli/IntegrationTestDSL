@@ -2,6 +2,7 @@ package state
 
 import model.AbstractAssertion
 import model.ContainsAssertion
+import model.DelayTestStep
 import model.HttpRequestTestStep
 import model.SqlTestStep
 import model.StatusCodeAssertion
@@ -89,6 +90,17 @@ class TestCaseBuilder {
 	 */
 	TestCaseBuilder post(String endpoint, String request, ContentType contentType) {
 		addTestStep(new HttpRequestTestStep(endpoint:endpoint, request:request, verb:HttpVerb.POST, contentType:contentType))
+		return this
+	}
+	
+	/**
+	 * Create a new dealay test step.
+	 *
+	 * @param milliseconds
+	 * @return this test case builder.
+	 */
+	TestCaseBuilder delay(long milliseconds) {
+		addTestStep(new DelayTestStep(time:milliseconds))
 		return this
 	}
 	

@@ -143,4 +143,15 @@ class TestCaseBuilderTest {
 		
 		assert tested.context.testCases[0].testSteps[0].assertions[0].code == 200
 	}
+	
+	@Test
+	void "Delay adds a delay test step"() {
+		def tested = new TestCaseBuilder()
+		
+		tested
+			.testCase("testCase")
+			.delay(200)
+			
+		assert  tested.context.testCases[0].testSteps[0].time == 200
+	}
 }
