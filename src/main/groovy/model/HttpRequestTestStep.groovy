@@ -14,14 +14,10 @@ class HttpRequestTestStep extends AbstractTestStep {
 		result = Request.Post(endpoint)
 				.bodyString(request,contentType)
 				.execute()
-				.returnContent()
-				.asString()
+				.returnResponse()
 		return true
 	}
 	
 	enum HttpVerb { GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS,TRACE }
 	
 }
-		//Post("http://targethost/login")
-		//.bodyForm(Form.form().add("username",  "vip").add("password",  "secret").build())
-		//.execute().returnContent();

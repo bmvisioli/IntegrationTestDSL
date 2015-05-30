@@ -131,4 +131,16 @@ class TestCaseBuilderTest {
 		tested
 			.tearDownScript { it.name = "newTestCase" }
 	}
+	
+	@Test
+	void "StatusCode adds an assertion for http test steps return codes"() {
+		def tested = new TestCaseBuilder()
+		
+		tested
+			.testCase("testCase")
+			.post("", "", null)
+			.statusCode(200)
+		
+		assert tested.context.testCases[0].testSteps[0].assertions[0].code == 200
+	}
 }

@@ -1,15 +1,16 @@
 package state
 
-import org.apache.http.entity.ContentType;
-
 import model.AbstractAssertion
 import model.ContainsAssertion
 import model.HttpRequestTestStep
 import model.SqlTestStep
+import model.StatusCodeAssertion
 import model.TestCase
 import model.TestCaseImpl
 import model.TestStep
 import model.HttpRequestTestStep.HttpVerb
+
+import org.apache.http.entity.ContentType
 
 class TestCaseBuilder {
 	
@@ -123,5 +124,13 @@ class TestCaseBuilder {
 		if(!activeTestStep) throw new IllegalStateException("An assertion must be added to a Test Step.")
 		activeAssertion = assertion
 		activeTestStep.assertions << assertion
+	}
+	
+	/**
+	 * 
+	 */
+	TestCaseBuilder statusCode(int code) {
+		addAssertion(new StatusCodeAssertion(code:code))
+		return this
 	}
 }
