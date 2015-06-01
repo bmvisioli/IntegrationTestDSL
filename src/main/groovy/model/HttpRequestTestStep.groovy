@@ -11,10 +11,14 @@ class HttpRequestTestStep extends AbstractTestStep {
 	ContentType contentType
 	@Override
 	public boolean run() {
-		result = Request.Post(endpoint)
-				.bodyString(request,contentType)
-				.execute()
-				.returnResponse()
+		result = new HttpResponse()
+		Request.Post(endpoint)
+		.bodyString(request,contentType)
+		.execute()
+		.returnResponse().with {
+			result.statusCode = getStatusLine().getStatusCode()
+			result.response = getEntity().getContent().text
+		}
 		return true
 	}
 	

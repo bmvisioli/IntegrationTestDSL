@@ -1,7 +1,7 @@
-package modelimport org.apache.http.HttpResponse
+package model
 class ContainsAssertion extends AbstractAssertion {
 
-	String text		public boolean assertCondition(HttpResponse response) {		def valid = response.getEntity().getContent().text ==~ ".*${text}.*"		return valid	}
+	String text		public boolean assertCondition(HttpResponse result) {		return result.response ==~ ".*${text}.*"	}
 	@Override
 	public boolean assertCondition(Object result) {
 		return result ==~ ".*${text}.*"

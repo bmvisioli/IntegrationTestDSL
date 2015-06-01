@@ -163,4 +163,17 @@ class TestCaseBuilderTest {
 			
 		assert  tested.context.testCases[0].testSteps[0].time == 200
 	}
+	
+	@Test
+	void "XPath methods adds a xpath assertion to a test step"() {
+		def tested = new TestCaseBuilder()
+		
+		tested
+			.testCase("testCase")
+			.post("","",null)
+			.xpath("/row/element/text()", "value")
+			
+		assert  tested.context.testCases[0].testSteps[0].assertions[0].xpath == "/row/element/text()"
+		assert  tested.context.testCases[0].testSteps[0].assertions[0].text == "value"
+	}
 }

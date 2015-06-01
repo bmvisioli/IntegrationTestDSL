@@ -11,6 +11,6 @@ class Context implements Executable {
 	public boolean execute() {
 		boolean result = true
 		testCases.each { result &= it.execute() }
-		return result;
+		return result
 	}
 }

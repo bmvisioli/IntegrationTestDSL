@@ -9,6 +9,7 @@ import model.StatusCodeAssertion
 import model.TestCase
 import model.TestCaseImpl
 import model.TestStep
+import model.XPathAssertion
 import model.HttpRequestTestStep.HttpVerb
 
 import org.apache.http.entity.ContentType
@@ -139,12 +140,19 @@ class TestCaseBuilder {
 	}
 	
 	/**
+	 * Add a status code assertion on a HttpRequest test step.
 	 * 
+	 * @param code the expected HTTP status code.
 	 */
 	TestCaseBuilder statusCode(int code) {
 		if(activeTestStep instanceof HttpRequestTestStep) 
 			addAssertion(new StatusCodeAssertion(code:code))
 		else throw new IllegalStateException("Status Code assertion only allowed on http request test steps.")
+		return this
+	}
+	
+	TestCaseBuilder xpath(String xpath, String expectedValue) {
+		addAssertion(new XPathAssertion(xpath:xpath, text:expectedValue))
 		return this
 	}
 }
