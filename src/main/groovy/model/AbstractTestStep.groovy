@@ -13,8 +13,7 @@ abstract class AbstractTestStep implements TestStep {
 	public boolean execute() {
 		beforeRun()
 		def result = run()
-		result &= validateAssertions()
-		return result
+		return result &= validateAssertions()
 	}
 	
 	private void beforeRun() {
@@ -25,11 +24,17 @@ abstract class AbstractTestStep implements TestStep {
 		def valid = true
 		if(result)
 			assertions.each {
-				def assertionResult = it.assertCondition(result)
-				log.info("Assertion '${it.name}' ${assertionResult ? 'succeeded' : 'failed'}")
-				valid &= assertionResult
+				try{
+					def assertionResult = it.assertCondition(result)
+					log.info("Assertion '${it.name}' ${assertionResult ? 'succeeded' : 'failed'}.")
+					valid &= assertionResult
+				} catch(Exception ex) {
+					log.info("Assertion '${it.name}' threw an exception.")
+					ex.printStackTrace()
+					valid = false
+				}
 		}
-		log.info("TestStep ${valid ? 'succeeded' : 'failed'}")
+		log.info("TestStep ${valid ? 'succeeded' : 'failed'}.")
 		return valid
 	}
 	

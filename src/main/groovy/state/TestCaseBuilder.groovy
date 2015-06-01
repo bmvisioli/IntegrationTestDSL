@@ -4,6 +4,7 @@ import model.AbstractAssertion
 import model.ContainsAssertion
 import model.DelayTestStep
 import model.HttpRequestTestStep
+import model.JmsDequeueTestStep
 import model.SqlTestStep
 import model.StatusCodeAssertion
 import model.TestCase
@@ -173,6 +174,18 @@ class TestCaseBuilder {
 	TestCaseBuilder header(String name, String value) {
 		if(!activeTestStep) throw new IllegalStateException("A header must be added to a Test Step.")
 		activeTestStep.headers.put(name, value)
+		return this
+	}
+	
+	/**
+	 * Read and dequeue a message from a queue.
+	 * 
+	 * @param url the JMS Provider URL i.e: tcp://localhost:61616.
+	 * @param queue the name of the queue to consume from.
+	 * @return this test case builder.
+	 */
+	TestCaseBuilder dequeue(String url, String queue) {
+		addTestStep(new JmsDequeueTestStep(url:url, queue:queue))
 		return this
 	}
 }

@@ -171,7 +171,7 @@ class TestCaseBuilderTest {
 		tested
 			.testCase("testCase")
 			.post("","",null)
-			.xpath("/row/element/text()", "value")
+				.xpath("/row/element/text()", "value")
 			
 		assert  tested.context.testCases[0].testSteps[0].assertions[0].xpath == "/row/element/text()"
 		assert  tested.context.testCases[0].testSteps[0].assertions[0].text == "value"
@@ -185,11 +185,23 @@ class TestCaseBuilderTest {
 			.testCase("testCase")
 				.sql("", "")
 					.header("key","value")
-		assert  tested.context.testCases[0].testSteps[0].headers["key"] == "value"
+		assert tested.context.testCases[0].testSteps[0].headers["key"] == "value"
 	}
 	
 	@Test(expected=IllegalStateException)
 	void "Add a header with no test step throws an Exception"() {
 		new TestCaseBuilder().header("key","value")
+	}
+	
+	@Test
+	void "Dequeue adds a JMS Dequeue test step"() {
+		def tested = new TestCaseBuilder()
+		
+		tested
+			.testCase("testCase")
+				.dequeue("url","queue")
+				
+		assert tested.context.testCases[0].testSteps[0].url == "url"
+		assert tested.context.testCases[0].testSteps[0].queue == "queue"
 	}
 }
