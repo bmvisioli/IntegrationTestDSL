@@ -151,8 +151,28 @@ class TestCaseBuilder {
 		return this
 	}
 	
+	/**
+	 * Add a new xpath assertion.
+	 * 
+	 * @param xpath the xpath expression i.e.: /parent/child/text().
+	 * @param expectedValue the expected resulting value from the xpath.
+	 * @return this test case builder.
+	 */
 	TestCaseBuilder xpath(String xpath, String expectedValue) {
 		addAssertion(new XPathAssertion(xpath:xpath, text:expectedValue))
+		return this
+	}
+	
+	/**
+	 * Add a header to a test step.
+	 * 
+	 * @param key the header name.
+	 * @param value the header value.
+	 * @return this test case builder.
+	 */
+	TestCaseBuilder header(String name, String value) {
+		if(!activeTestStep) throw new IllegalStateException("A header must be added to a Test Step.")
+		activeTestStep.headers.put(name, value)
 		return this
 	}
 }

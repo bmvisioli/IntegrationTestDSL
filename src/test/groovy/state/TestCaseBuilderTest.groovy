@@ -176,4 +176,20 @@ class TestCaseBuilderTest {
 		assert  tested.context.testCases[0].testSteps[0].assertions[0].xpath == "/row/element/text()"
 		assert  tested.context.testCases[0].testSteps[0].assertions[0].text == "value"
 	}
+	
+	@Test
+	void "Header method adds a header to the active test step"() {
+		def tested = new TestCaseBuilder()
+		
+		tested
+			.testCase("testCase")
+				.sql("", "")
+					.header("key","value")
+		assert  tested.context.testCases[0].testSteps[0].headers["key"] == "value"
+	}
+	
+	@Test(expected=IllegalStateException)
+	void "Add a header with no test step throws an Exception"() {
+		new TestCaseBuilder().header("key","value")
+	}
 }

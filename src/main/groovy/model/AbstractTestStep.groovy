@@ -8,6 +8,7 @@ abstract class AbstractTestStep implements TestStep {
 	String name = "unnamed"
 	Object result
 	List<AbstractAssertion> assertions = []
+	Map headers = [:]
 	
 	public boolean execute() {
 		beforeRun()
