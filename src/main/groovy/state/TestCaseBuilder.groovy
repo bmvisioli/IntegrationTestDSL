@@ -5,6 +5,7 @@ import model.ContainsAssertion
 import model.DelayTestStep
 import model.HttpRequestTestStep
 import model.JmsDequeueTestStep
+import model.MockResponseTestStep
 import model.SqlTestStep
 import model.StatusCodeAssertion
 import model.TestCase
@@ -186,6 +187,19 @@ class TestCaseBuilder {
 	 */
 	TestCaseBuilder dequeue(String url, String queue) {
 		addTestStep(new JmsDequeueTestStep(url:url, queue:queue))
+		return this
+	}
+	
+	/**
+	 * Create a mock service that listen on the given port and path and returns the response once.
+	 * 
+	 * @param path the path the service will be listening to i.e.: /resources/people.
+	 * @param port the port the service will be listening to.
+	 * @param response the response the service will return.
+	 * @return this test case builder.
+	 */
+	TestCaseBuilder mock(String path, int port, String response) {
+		addTestStep(new MockResponseTestStep(path:path, port:port, response:response))
 		return this
 	}
 }
