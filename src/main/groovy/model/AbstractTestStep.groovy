@@ -5,7 +5,7 @@ import groovy.util.logging.Slf4j;
 @Slf4j
 abstract class AbstractTestStep implements TestStep {
 
-	String name = "unnamed"
+	String name
 	Object result
 	List<AbstractAssertion> assertions = []
 	Map headers = [:]
@@ -17,7 +17,7 @@ abstract class AbstractTestStep implements TestStep {
 	}
 	
 	private void beforeRun() {
-		log.info("Running TestStep '${name}'")
+		log.info("Running TestStep '${name ?: this.class.getSimpleName()}'")
 	}
 	
 	private boolean validateAssertions() {
@@ -26,10 +26,10 @@ abstract class AbstractTestStep implements TestStep {
 			assertions.each {
 				try{
 					def assertionResult = it.assertCondition(result)
-					log.info("Assertion '${it.name}' ${assertionResult ? 'succeeded' : 'failed'}.")
+					log.info("Assertion '${it.name ?: it.class.getSimpleName()}' ${assertionResult ? 'succeeded' : 'failed'}.")
 					valid &= assertionResult
 				} catch(Exception ex) {
-					log.info("Assertion '${it.name}' threw an exception.")
+					log.info("Assertion '${it.name ?: it.class.getSimpleName()}' threw an exception.")
 					ex.printStackTrace()
 					valid = false
 				}

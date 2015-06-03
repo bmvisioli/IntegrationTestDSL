@@ -4,6 +4,7 @@ import model.HttpRequestTestStep;
 
 import org.apache.http.entity.ContentType;
 import org.junit.Test
+import org.junit.experimental.theories.suppliers.TestedOn;
 
 class TestCaseBuilderTest {
 
