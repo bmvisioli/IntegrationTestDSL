@@ -175,7 +175,7 @@ class TestCaseBuilderTest {
 				.xpath("/row/element/text()", "value")
 
 		assert  tested.context.testCases[0].testSteps[0].assertions[0].xpath == "/row/element/text()"
-		assert  tested.context.testCases[0].testSteps[0].assertions[0].text == "value"
+		assert  tested.context.testCases[0].testSteps[0].assertions[0].expectedValue == "value"
 	}
 
 	@Test

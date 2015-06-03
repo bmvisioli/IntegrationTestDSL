@@ -24,7 +24,7 @@ class XmlParserTest {
 	}
 
 	private String getParsedString() {
-		return "<row><column1>value1</column1><column2>value2</column2></row><row><column1>value1</column1><column2>value2</column2></row>"
+		return "<rows><row><column1>value1</column1><column2>value2</column2></row><row><column1>value1</column1><column2>value2</column2></row></rows>"
 	}
 
 	@Test

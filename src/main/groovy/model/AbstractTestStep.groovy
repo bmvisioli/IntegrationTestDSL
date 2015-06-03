@@ -22,17 +22,16 @@ abstract class AbstractTestStep implements TestStep {
 	
 	private boolean validateAssertions() {
 		def valid = true
-		if(result)
-			assertions.each {
-				try{
-					def assertionResult = it.assertCondition(result)
-					log.info("Assertion '${it.name ?: it.class.getSimpleName()}' ${assertionResult ? 'succeeded' : 'failed'}.")
-					valid &= assertionResult
-				} catch(Exception ex) {
-					log.info("Assertion '${it.name ?: it.class.getSimpleName()}' threw an exception.")
-					ex.printStackTrace()
-					valid = false
-				}
+		assertions.each {
+			try{
+				def assertionResult = it.assertCondition(result)
+				log.info("Assertion '${it.name ?: it.class.getSimpleName()}' ${assertionResult ? 'succeeded' : 'failed'}.")
+				valid &= assertionResult
+			} catch(Exception ex) {
+				log.info("Assertion '${it.name ?: it.class.getSimpleName()}' threw an exception.")
+				ex.printStackTrace()
+				valid = false
+			}
 		}
 		log.info("TestStep ${valid ? 'succeeded' : 'failed'}.")
 		return valid

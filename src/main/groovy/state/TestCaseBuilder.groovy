@@ -161,7 +161,7 @@ class TestCaseBuilder {
 	 * @return this test case builder.
 	 */
 	TestCaseBuilder xpath(String xpath, String expectedValue) {
-		addAssertion(new XPathAssertion(xpath:xpath, text:expectedValue))
+		addAssertion(new XPathAssertion(xpath:xpath, expectedValue:expectedValue))
 		return this
 	}
 	
