@@ -13,34 +13,28 @@ class MockResponseTestStep extends AbstractTestStep {
 	String path
 	int port
 	String response
-	
+
 	@Override
 	public boolean run() {
 		def received = false
-		new Server(port).with {
+		def server = new Server(port)
+		server.with {
 			setHandler(new AbstractHandler() {
-				public void handle(String target,
-									Request baseRequest,
-									HttpServletRequest req,
-									HttpServletResponse resp)
-				{
-					resp.with {
-						setContentType("text/xml;charset=utf-8")
-						setStatus(HttpServletResponse.SC_OK)
-						getWriter().println(resp)
-					}
-					baseRequest.setHandled(true)
-					result = baseRequest.getReader().getText()
-					received = true
-					server.stop()
-				}
-				
-			})
-			start()
-			join()
+						public void handle(String target,
+								Request baseRequest,
+								HttpServletRequest req,
+								HttpServletResponse resp) {
+							resp.setContentType("text/xml;charset=utf-8")
+							resp.setStatus(HttpServletResponse.SC_OK)
+							baseRequest.setHandled(true)
+							result = baseRequest.getReader().getText()
+							resp.getWriter().println(response)
+							Thread.start { server.stop() }
+						}
+					})
 		}
-		while(!received) {}
+		server.start()
+		server.join()
 		return true
 	}
-
 }
