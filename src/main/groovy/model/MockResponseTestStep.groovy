@@ -1,6 +1,5 @@
 package model
 
-import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
@@ -16,7 +15,6 @@ class MockResponseTestStep extends AbstractTestStep {
 
 	@Override
 	public boolean run() {
-		def received = false
 		def server = new Server(port)
 		server.with {
 			setHandler(new AbstractHandler() {
@@ -24,12 +22,23 @@ class MockResponseTestStep extends AbstractTestStep {
 								Request baseRequest,
 								HttpServletRequest req,
 								HttpServletResponse resp) {
-							resp.setContentType("text/xml;charset=utf-8")
-							resp.setStatus(HttpServletResponse.SC_OK)
-							baseRequest.setHandled(true)
-							result = baseRequest.getReader().getText()
-							resp.getWriter().println(response)
-							Thread.start { server.stop() }
+							if(target == path) {
+								resp.setContentType("text/xml;charset=utf-8")
+								resp.setStatus(HttpServletResponse.SC_OK)
+								baseRequest.setHandled(true)
+								result = baseRequest.getReader().getText()
+								resp.getWriter().println(response)
+							} else {
+								resp.setStatus(404)
+							}
+							Thread.start {
+								try {
+									Thread.sleep(500)
+								} catch(any) {
+									Thread.currentThread().interrupt()
+								}
+								server.stop()
+							}
 						}
 					})
 		}
