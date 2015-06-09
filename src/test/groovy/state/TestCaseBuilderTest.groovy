@@ -231,4 +231,17 @@ class TestCaseBuilderTest {
 		assert tested.context.testCases[0].testSteps[0].queue == "queue"
 		assert tested.context.testCases[0].testSteps[0].message == "message"
 	}
+	
+	@Test
+	void "User adds user and pass headers"() {
+		def tested = new TestCaseBuilder()
+		
+		tested
+			.testCase("jms")
+			.enqueue("url", "queue", "message")
+				.user("user", "pass")
+		
+		assert tested.context.testCases[0].testSteps[0].headers["username"] == "user"
+		assert tested.context.testCases[0].testSteps[0].headers["password"] == "pass"
+	}
 }

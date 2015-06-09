@@ -8,8 +8,8 @@ import org.apache.activemq.ActiveMQConnectionFactory
 
 class JmsConnector {
 
-	static void enqueueMessage(String url, String queue, Object message) {
-		new ActiveMQConnectionFactory(url).createConnection().with {
+	static void enqueueMessage(String url, String username, String password, String queue, Object message) {
+		new ActiveMQConnectionFactory(url).createConnection(username, password).with {
 			start()
 			createSession(false, Session.AUTO_ACKNOWLEDGE).with {
 				def textMessage = createTextMessage(message)
@@ -23,9 +23,9 @@ class JmsConnector {
 		}
 	}
 	
-	static Message dequeueMessage(String url, String queue) {
+	static Message dequeueMessage(String url, String username, String password, String queue) {
 		def result
-		new ActiveMQConnectionFactory(url).createConnection().with {
+		new ActiveMQConnectionFactory(url).createConnection(username, password).with {
 			start()
 			createSession(false, Session.AUTO_ACKNOWLEDGE).with {
 				result = createConsumer(createQueue(queue)).receive()

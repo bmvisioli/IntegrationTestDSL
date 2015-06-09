@@ -6,11 +6,11 @@ class JmsEnqueueTestStep extends AbstractTestStep {
 
 	String url
 	String queue
-	String message	
+	String message
 	
 	@Override
 	public boolean run() {
-		JmsConnector.enqueueMessage(url, queue, message)
+		JmsConnector.enqueueMessage(url, headers.username, headers.password, queue, message)
 		return true
 	}
 	

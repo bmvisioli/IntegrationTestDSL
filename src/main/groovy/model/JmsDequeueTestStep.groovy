@@ -11,7 +11,7 @@ class JmsDequeueTestStep extends AbstractTestStep {
 	
 	@Override
 	public boolean run() {
-		def message = JmsConnector.dequeueMessage(url, queue)
+		def message = JmsConnector.dequeueMessage(url, headers.username, headers.password, queue)
 		if(message instanceof TextMessage) {
 			result = ((TextMessage)message).getText()
 			return true

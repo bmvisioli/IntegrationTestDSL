@@ -143,6 +143,17 @@ class TestCaseBuilder {
 	}
 	
 	/**
+	 * Adds the header to the active test testp.
+	 * 
+	 * @param name header name.
+	 * @param value header value.
+	 */
+	private void addHeader(String name, String value) {
+		if(!activeTestStep) throw new IllegalStateException("A header must be added to a Test Step.")
+		activeTestStep.headers.put(name, value)
+	}
+	
+	/**
 	 * Add a status code assertion on a HttpRequest test step.
 	 * 
 	 * @param code the expected HTTP status code.
@@ -174,8 +185,7 @@ class TestCaseBuilder {
 	 * @return this test case builder.
 	 */
 	TestCaseBuilder header(String name, String value) {
-		if(!activeTestStep) throw new IllegalStateException("A header must be added to a Test Step.")
-		activeTestStep.headers.put(name, value)
+		addHeader(name, value)
 		return this
 	}
 	
@@ -214,6 +224,19 @@ class TestCaseBuilder {
 	 */
 	TestCaseBuilder enqueue(String url, String queue, String message) {
 		addTestStep(new JmsEnqueueTestStep(url:url, queue:queue, message:message))
+		return this
+	}
+	
+	/**
+	 * Add credentials information for the test step.
+	 * 
+	 * @param username
+	 * @param password
+	 * @return this test case builder.
+	 */
+	TestCaseBuilder user(String username, String password) {
+		addHeader("username", username)
+		addHeader("password", password)
 		return this
 	}
 }
