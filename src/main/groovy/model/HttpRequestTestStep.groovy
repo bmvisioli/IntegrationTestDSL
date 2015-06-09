@@ -12,10 +12,16 @@ class HttpRequestTestStep extends AbstractTestStep {
 	@Override
 	public boolean run() {
 		result = new HttpResponse()
-		def httpRequest = Request.Post(endpoint).bodyString(request,contentType)
-		headers.each {
-			httpRequest.addHeader(it.key, it.value)
+		def httpRequest = null
+		switch(verb) {
+			case HttpVerb.POST:
+				httpRequest = Request.Post(endpoint).bodyString(request,contentType)
+				break
+			case HttpVerb.GET:
+				httpRequest = Request.Get(endpoint)
+				break
 		}
+		headers.each { httpRequest.addHeader(it.key, it.value) }
 		httpRequest.execute()
 		.returnResponse().with {
 			result.statusCode = getStatusLine().getStatusCode()

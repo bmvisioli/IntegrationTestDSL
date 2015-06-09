@@ -86,7 +86,7 @@ class TestCaseBuilder {
 	}
 	
 	/**
-	 * Create a new HttpRequest test step.
+	 * Create a new POST HttpRequest test step.
 	 * 
 	 * @param endpoint the endpoint to call i.e.: http://host:8080/soap.
 	 * @param request the request to send.
@@ -94,6 +94,17 @@ class TestCaseBuilder {
 	 */
 	TestCaseBuilder post(String endpoint, String request, ContentType contentType) {
 		addTestStep(new HttpRequestTestStep(endpoint:endpoint, request:request, verb:HttpVerb.POST, contentType:contentType))
+		return this
+	}
+	
+	/**
+	 * Create a new HttpRequest GET test step.
+	 *
+	 * @param endpoint the endpoint to call i.e.: http://host:8080/get?param=value.
+	 * @return this test case builder.
+	 */
+	TestCaseBuilder get(String endpoint) {
+		addTestStep(new HttpRequestTestStep(endpoint:endpoint, verb:HttpVerb.GET))
 		return this
 	}
 	

@@ -144,7 +144,7 @@ class TestCaseBuilderTest {
 
 		assert tested.context.testCases[0].testSteps[0].assertions[0].code == 200
 	}
-
+	
 	@Test(expected=IllegalStateException)
 	void "Attempting to add a status code to a non-HttpRequest test step throws a exception"() {
 		def tested = new TestCaseBuilder()
@@ -243,5 +243,17 @@ class TestCaseBuilderTest {
 		
 		assert tested.context.testCases[0].testSteps[0].headers["username"] == "user"
 		assert tested.context.testCases[0].testSteps[0].headers["password"] == "pass"
+	}
+	
+	@Test
+	void "Get method creates a new http request test step in Context"() {
+		def tested = new TestCaseBuilder()
+
+		tested
+			.testCase("testCase")
+				.get("endpoint")
+
+		assert tested.context.testCases[0].testSteps[0].endpoint == "endpoint"
+		assert tested.context.testCases[0].testSteps[0].verb == HttpRequestTestStep.HttpVerb.GET
 	}
 }
