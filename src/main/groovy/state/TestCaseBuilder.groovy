@@ -5,6 +5,7 @@ import model.ContainsAssertion
 import model.DelayTestStep
 import model.HttpRequestTestStep
 import model.JmsDequeueTestStep
+import model.JmsEnqueueTestStep
 import model.MockResponseTestStep
 import model.SqlTestStep
 import model.StatusCodeAssertion
@@ -200,6 +201,19 @@ class TestCaseBuilder {
 	 */
 	TestCaseBuilder mock(String path, int port, String response) {
 		addTestStep(new MockResponseTestStep(path:path, port:port, response:response))
+		return this
+	}
+	
+	/**
+	 * Enqueue a message on the given queue.
+	 * 
+	 * @param url the JMS Provider URL i.e: tcp://localhost:61616.
+	 * @param queue the name of the queue.
+	 * @param message the message to enqueue.
+	 * @return this test case builder.
+	 */
+	TestCaseBuilder enqueue(String url, String queue, String message) {
+		addTestStep(new JmsEnqueueTestStep(url:url, queue:queue, message:message))
 		return this
 	}
 }

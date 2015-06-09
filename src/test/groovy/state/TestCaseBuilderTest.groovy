@@ -218,4 +218,17 @@ class TestCaseBuilderTest {
 		assert tested.context.testCases[0].testSteps[0].port == 8081
 		assert tested.context.testCases[0].testSteps[0].response == "</response>"
 	}
+	
+	@Test
+	void "Enqueue adds a JmsEnqueue test step"() {
+		def tested = new TestCaseBuilder()
+		
+		tested
+			.testCase("jms")
+			.enqueue("url", "queue", "message")
+		
+		assert tested.context.testCases[0].testSteps[0].url == "url"
+		assert tested.context.testCases[0].testSteps[0].queue == "queue"
+		assert tested.context.testCases[0].testSteps[0].message == "message"
+	}
 }
