@@ -148,7 +148,7 @@ class TestCaseBuilder {
 	 * @param name header name.
 	 * @param value header value.
 	 */
-	private void addHeader(String name, String value) {
+	private void addHeader(String name, Object value) {
 		if(!activeTestStep) throw new IllegalStateException("A header must be added to a Test Step.")
 		activeTestStep.headers.put(name, value)
 	}
@@ -184,7 +184,7 @@ class TestCaseBuilder {
 	 * @param value the header value.
 	 * @return this test case builder.
 	 */
-	TestCaseBuilder header(String name, String value) {
+	TestCaseBuilder header(String name, Object value) {
 		addHeader(name, value)
 		return this
 	}

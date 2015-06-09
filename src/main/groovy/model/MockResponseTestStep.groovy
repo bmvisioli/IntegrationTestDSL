@@ -23,8 +23,8 @@ class MockResponseTestStep extends AbstractTestStep {
 								HttpServletRequest req,
 								HttpServletResponse resp) {
 							if(target == path) {
-								resp.setContentType("text/xml;charset=utf-8")
-								resp.setStatus(HttpServletResponse.SC_OK)
+								resp.setContentType(headers.contentType ?: "text/xml;charset=utf-8")
+								resp.setStatus(headers.returnCode ?: HttpServletResponse.SC_OK)
 								baseRequest.setHandled(true)
 								result = baseRequest.getReader().getText()
 								resp.getWriter().println(response)
