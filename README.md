@@ -9,3 +9,5 @@ Expected features:
 - Make HTTP requests with body and headers;
 - Make JMS enqueues/dequeues;
 - Assert results of the test steps.
+
+[ ![Download](https://api.bintray.com/packages/bmvisioli/groovy/IntegrationTestDSL/images/download.svg) ](https://bintray.com/bmvisioli/groovy/IntegrationTestDSL/_latestVersion)
